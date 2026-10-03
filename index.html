@@ -71,7 +71,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
 @keyframes squash{0%{transform:scale(1.18,.8)}100%{transform:none}}
 #hshadow{position:absolute;z-index:2;pointer-events:none;border-radius:50%;background:rgba(0,0,0,.28)}
 #stage{position:absolute;inset:0;z-index:4}
-#hud{position:absolute;inset:0;z-index:5;pointer-events:none;padding:calc(var(--sat) + 8px) calc(var(--sar) + 10px) calc(var(--sab) + 12px) calc(var(--sal) + 10px);display:flex;flex-direction:column;justify-content:space-between}
+#hud{position:absolute;inset:0;z-index:5;pointer-events:none;padding:calc(var(--sat) + 8px) calc(var(--sar) + 10px) calc(var(--sab) + 12px) calc(var(--sal) + 10px);display:flex;flex-direction:column;justify-content:flex-start}
 .hud-top{display:flex;align-items:flex-start;gap:8px}
 .hud-top .mid{flex:1;text-align:center;min-width:0}
 .streak-lbl{font-weight:900;font-size:15px;letter-spacing:2px}
@@ -84,7 +84,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
 #nextlbl{font-weight:900;font-size:13px;margin-top:2px}
 .shields{display:flex;gap:2px;justify-content:center;min-height:26px;margin-top:2px}
 .shields .ic{width:26px;height:26px}
-.hud-bot{display:flex;align-items:flex-end;gap:10px}
+.hud-bot{display:flex;align-items:flex-end;gap:8px;margin-top:auto}
 #jumpbtn{flex:1;min-height:92px;border-radius:30px;font-size:38px;font-weight:900;color:#fff;background:#ff8a1f;box-shadow:0 9px 0 #b85a00,0 14px 18px rgba(0,0,0,.2);text-shadow:0 3px 0 rgba(0,0,0,.25);pointer-events:auto;letter-spacing:2px}
 #jumpbtn:active,#jumpbtn.held{transform:translateY(6px);box-shadow:0 3px 0 #b85a00}
 #jumpbtn.cue{background:#ffb03a;animation:cue .22s ease-out}
@@ -108,6 +108,7 @@ button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
 .earned{display:flex;flex-direction:column;gap:6px;width:100%;text-align:left;font-weight:900;font-size:18px}
 .earned div{display:flex;align-items:center;gap:8px;background:#f1edff;border-radius:12px;padding:6px 10px}
 .earned div b{margin-left:auto}
+.fade{font-weight:900;font-size:15px;color:#7b5cff}
 .unl{background:#fff3c4;border:3px solid var(--gold);border-radius:14px;padding:6px 10px;font-weight:900;font-size:16px;display:flex;gap:8px;align-items:center;text-align:left;width:100%}
 .unl .ic{width:34px;height:34px}
 /* ---------- shop ---------- */
@@ -152,10 +153,60 @@ button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
 .mch .btn{flex:1;min-height:76px;font-size:34px;padding:6px}
 .mch .btn.right{background:#2fbf4a;box-shadow:0 6px 0 #1c8a31}
 .mch .btn.wrong{background:#ff8a1f;box-shadow:0 6px 0 #b85a00}
+
+#shopbtn{min-width:76px;min-height:92px;border-radius:26px;background:#a56bff;box-shadow:0 8px 0 #6d3fd1;color:#fff;font-weight:900;font-size:15px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;pointer-events:auto;position:relative}
+#shopbtn .ic{width:34px;height:34px}
+#shopbtn:active{transform:translateY(5px);box-shadow:0 3px 0 #6d3fd1}
+#shopbtn.can{background:#ff5ea8;box-shadow:0 8px 0 #b32d70}
+#shopbtn.new{animation:shopwob .7s ease-in-out infinite alternate}
+#shopbtn.new::after{content:"!";position:absolute;top:-8px;right:-4px;width:28px;height:28px;border-radius:50%;background:#ffd23d;color:var(--ink);border:3px solid var(--ink);font-size:18px;line-height:22px;text-align:center}
+@keyframes shopwob{from{transform:rotate(-4deg) scale(1)}to{transform:rotate(4deg) scale(1.08)}}
+#boostbar{display:flex;flex-wrap:wrap;gap:5px;justify-content:center;align-content:flex-start;margin:6px 0 0;min-height:0;max-height:84px;overflow:hidden;pointer-events:none}
+.bi{position:relative;width:36px;height:36px;border-radius:11px;background:#fff;border:3px solid #8d99ae;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 0 rgba(0,0,0,.2)}
+.bi .ic{width:24px;height:24px}
+.bi i{position:absolute;right:-6px;bottom:-7px;background:var(--ink);color:#fff;font-style:normal;font-weight:900;font-size:12px;line-height:1;border-radius:9px;padding:2px 4px}
+.bi.r-common{border-color:#8d99ae}.bi.r-rare{border-color:#2f8cff;background:#e6f1ff}.bi.r-epic{border-color:#a56bff;background:#f1e8ff}.bi.r-legendary{border-color:#ffb300;background:#fff4cf;box-shadow:0 0 10px #ffd23d,0 3px 0 rgba(0,0,0,.2)}
+.bi.tmp{border-color:#2fbf4a;background:#e5ffe9}
+.bi.pop{animation:spop .35s cubic-bezier(.2,1.8,.5,1)}
+#count{position:absolute;left:0;right:0;top:30%;z-index:7;text-align:center;pointer-events:none;font-family:"Arial Black",system-ui,sans-serif;font-weight:900;font-size:clamp(90px,30vw,150px);line-height:1;color:#fff;text-shadow:0 6px 0 var(--ink),0 0 0 var(--ink),4px 4px 0 var(--ink),-4px 4px 0 var(--ink),4px -4px 0 var(--ink),-4px -4px 0 var(--ink);opacity:0}
+#count.show{animation:cnt .7s ease-out forwards}
+#count.show.go{color:#ffe23d;animation:cnt .8s ease-out forwards}
+@keyframes cnt{0%{opacity:0;transform:scale(2)}20%{opacity:1;transform:scale(1)}80%{opacity:1}100%{opacity:0;transform:scale(.85)}}
+/* in-run shop / draft */
+.sbox{background:#fff;border-radius:28px;padding:12px;width:min(100%,430px);display:flex;flex-direction:column;gap:8px;box-shadow:0 8px 0 rgba(0,0,0,.25);max-height:100%;overflow-y:auto;overflow-x:hidden;touch-action:pan-y;text-align:center}
+.sh-top{display:flex;align-items:center;gap:8px}
+.sh-top h2{flex:1;font-family:"Arial Black",system-ui,sans-serif;font-size:26px;text-align:right;line-height:1}
+.draft{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.dcard{min-width:0;position:relative;display:flex;flex-direction:column;align-items:center;gap:3px;padding:16px 4px 6px;border-radius:18px;border:4px solid #8d99ae;background:#f1f4f9;min-height:176px;color:var(--ink);box-shadow:0 5px 0 rgba(0,0,0,.18);pointer-events:auto}
+.dcard.r-rare{border-color:#2f8cff;background:#e6f1ff}.dcard.r-epic{border-color:#a56bff;background:#f1e8ff}
+.dcard.r-legendary{border-color:#ffb300;background:#fff4cf;box-shadow:0 0 14px #ffd23d,0 5px 0 rgba(0,0,0,.18)}
+.dcard .rar{position:absolute;top:-2px;left:50%;transform:translate(-50%,-50%);font-size:11px;font-weight:900;letter-spacing:1px;color:#fff;background:#8d99ae;border-radius:9px;padding:2px 8px;white-space:nowrap}
+.dcard.r-rare .rar{background:#2f8cff}.dcard.r-epic .rar{background:#a56bff}.dcard.r-legendary .rar{background:#ffb300;color:var(--ink)}
+.dcard .dic .ic{width:50px;height:50px}
+.dcard b{font-size:14px;line-height:1.05;min-height:30px;display:flex;align-items:center}
+.dcard small{font-size:12px;font-weight:800;line-height:1.1;opacity:.8;display:block}
+.dcard .own{font-size:11px;font-weight:900;color:#fff;background:var(--ink);border-radius:8px;padding:0 6px}
+.dcard .price,.bn .price{margin-top:auto;display:inline-flex;align-items:center;gap:4px;background:#2fbf4a;color:#fff;font-weight:900;font-size:16px;border-radius:12px;padding:5px 10px;box-shadow:0 3px 0 #1c8a31;min-height:34px}
+.dcard.poor .price,.bn.poor .price{background:#b9b0e0;box-shadow:0 3px 0 #8f84c4}
+.dcard.poor{filter:saturate(.55)}
+.dcard.gone{opacity:.45;filter:grayscale(.8)}
+.dcard.got{outline:4px solid #2fbf4a;opacity:1;filter:none}
+.dcard.got .price{background:var(--ink);box-shadow:none}
+.sh-lbl{font-weight:900;font-size:15px;color:var(--pur);text-align:left}
+.buynow{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}
+.bn{display:grid;grid-template-columns:34px minmax(0,1fr);grid-template-areas:"i t" "p p";gap:4px 6px;align-items:center;padding:6px 8px;border-radius:16px;background:#f1edff;border:3px solid #cfc6f5;text-align:left;color:var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.14);pointer-events:auto;min-width:0}
+.bn>.ic{grid-area:i;width:34px;height:34px}
+.bn .tx{grid-area:t;min-width:0;line-height:1.05}
+.bn .tx b{font-size:14px;display:block}
+.bn .tx small{font-size:11.5px;font-weight:800;opacity:.75;display:block}
+.bn .price{grid-area:p;justify-self:stretch;justify-content:center;margin-top:0;font-size:15px;padding:4px 7px;min-height:32px}
+.sh-act{display:flex;gap:8px}
+.sh-act .btn{flex:1;font-size:19px;padding:8px 10px}
+.sh-act #btn-reroll{flex:none;min-width:108px;font-size:15px;flex-direction:column;gap:0;line-height:1.1}
 #toast{position:absolute;left:50%;bottom:calc(var(--sab) + 130px);transform:translate(-50%,16px);z-index:60;background:#2fbf4a;color:#fff;font-weight:900;font-size:19px;padding:9px 18px;border-radius:999px;border:3px solid var(--ink);box-shadow:0 4px 0 rgba(0,0,0,.25);opacity:0;pointer-events:none;transition:opacity .2s,transform .2s;white-space:nowrap;max-width:94vw;text-shadow:0 2px 0 rgba(0,0,0,.25)}
 #toast.on{opacity:1;transform:translate(-50%,0)}
 @media (max-height:620px){
-  #streak{font-size:50px}.btn.big{min-height:64px;font-size:28px}#jumpbtn{min-height:76px}#autobtn{min-height:76px}.cprev{height:100px}
+  #streak{font-size:50px}#shopbtn{min-height:76px}.btn.big{min-height:64px;font-size:28px}#jumpbtn{min-height:76px}#autobtn{min-height:76px}.cprev{height:100px}
 }
 @media (min-width:700px){.logo{font-size:64px}}
 </style>
@@ -192,9 +243,11 @@ button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
       </div>
       <button class="gear" data-act="settings" aria-label="Settings"><span id="gear-ic2"></span></button>
     </div>
-    <div class="hud-bot"><button id="autobtn" aria-label="Auto-Skip"></button><button id="jumpbtn" aria-label="Jump">JUMP!</button></div>
+    <div id="boostbar" aria-label="Active boosts"></div>
+    <div class="hud-bot"><button id="shopbtn" aria-label="Shop"></button><button id="autobtn" aria-label="Auto-Skip"></button><button id="jumpbtn" aria-label="Jump">JUMP!</button></div>
   </div>
   <div id="banner"></div>
+  <div id="count"></div>
   <div class="over" id="over"><div class="card" id="overcard"></div></div>
 </section>
 
@@ -210,8 +263,16 @@ button{font:inherit;color:inherit;cursor:pointer;border:none;background:none}
   <button class="btn go" data-act="play" style="margin-top:8px;flex:none">Let's skip!</button>
 </section>
 
+<div class="modal" id="shopm"><div class="sbox">
+  <div class="sh-top"><span class="chip gold" id="sh-purse"></span><h2 id="sh-title">Pick 1!</h2></div>
+  <div class="draft" id="sh-draft"></div>
+  <div class="sh-lbl">Buy now</div>
+  <div class="buynow" id="sh-buy"></div>
+  <div class="sh-act"><button class="btn small" id="btn-reroll"></button><button class="btn go" id="btn-shopclose">Keep skipping!</button></div>
+</div></div>
 <div class="modal" id="settingsm"><div class="mbox"><h2>Settings</h2>
   <div class="mrow"><span>Sound</span><button class="tog on" id="tog-sound" role="switch" aria-checked="true">ON</button></div>
+  <div class="mrow"><span>Auto shop pop-up</span><button class="tog on" id="tog-shop" role="switch" aria-checked="true">ON</button></div>
   <div class="mrow"><span>Skip Math bonus</span><button class="tog on" id="tog-math" role="switch" aria-checked="true">ON</button></div>
   <button class="btn red small" id="btn-reset">Reset progress</button>
   <button class="btn go" id="btn-setdone">Done</button></div></div>
@@ -412,6 +473,11 @@ var OUTFITS={
 };
 /* little SVG icons (no emoji so it looks the same everywhere) */
 var IC={
+  combo:function(){return '<svg viewBox="0 0 24 24" class="ic"><path d="M12 2l3 7 7.4.6-5.6 4.8 1.8 7.2L12 17.8 5.4 21.6l1.8-7.2L1.6 9.6 9 9z" fill="#ff8a1f" stroke="#2b2250" stroke-width="1.8" stroke-linejoin="round"/><path d="M8 9l8 6M16 9l-8 6" stroke="#fff" stroke-width="2.2" stroke-linecap="round"/></svg>'},
+  rain:function(){return '<svg viewBox="0 0 24 24" class="ic"><path d="M6 12a4 4 0 010-8 5 5 0 019.6 1.2A3.4 3.4 0 0116 12z" fill="#bfe6ff" stroke="#2b2250" stroke-width="1.8" stroke-linejoin="round"/><g fill="#ffc83d" stroke="#2b2250" stroke-width="1.3"><circle cx="7" cy="16" r="2.4"/><circle cx="13" cy="19" r="2.4"/><circle cx="18" cy="15" r="2.4"/></g></svg>'},
+  x2:function(){return '<svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="12" r="10" fill="#ffc83d" stroke="#2b2250" stroke-width="2"/><text x="12" y="16.5" text-anchor="middle" font-family="Arial Black,Arial,sans-serif" font-weight="900" font-size="12" fill="#2b2250">x2</text></svg>'},
+  dice:function(){return '<svg viewBox="0 0 24 24" class="ic"><rect x="3" y="3" width="18" height="18" rx="4" fill="#fff" stroke="#2b2250" stroke-width="2"/><g fill="#7b5cff"><circle cx="8" cy="8" r="1.8"/><circle cx="16" cy="8" r="1.8"/><circle cx="12" cy="12" r="1.8"/><circle cx="8" cy="16" r="1.8"/><circle cx="16" cy="16" r="1.8"/></g></svg>'},
+  bag:function(){return '<svg viewBox="0 0 24 24" class="ic"><path d="M5 8h14l1.4 13H3.6z" fill="#ff5ea8" stroke="#2b2250" stroke-width="2" stroke-linejoin="round"/><path d="M8.5 8V6.5a3.5 3.5 0 017 0V8" fill="none" stroke="#2b2250" stroke-width="2"/><circle cx="12" cy="15" r="3" fill="#ffd23d" stroke="#2b2250" stroke-width="1.5"/></svg>'},
   coin:function(){return '<svg viewBox="0 0 24 24" class="ic"><circle cx="12" cy="12" r="10" fill="#ffc83d" stroke="#2b2250" stroke-width="2"/><circle cx="12" cy="12" r="6" fill="none" stroke="#e09a00" stroke-width="2"/><path d="M12 8v8M10 10h3.2a1.6 1.6 0 010 3H10" fill="none" stroke="#b36b00" stroke-width="1.6" stroke-linecap="round"/></svg>'},
   star:function(c){return '<svg viewBox="0 0 24 24" class="ic"><path d="M12 2l3 7 7.4.6-5.6 4.8 1.8 7.2L12 17.8 5.4 21.6l1.8-7.2L1.6 9.6 9 9z" fill="'+(c||'#ffd23d')+'" stroke="#2b2250" stroke-width="1.8" stroke-linejoin="round"/></svg>'},
   shield:function(){return '<svg viewBox="0 0 24 24" class="ic"><path d="M12 2l8 3v6c0 5-3.4 9-8 11-4.6-2-8-6-8-11V5z" fill="#5ad1ff" stroke="#2b2250" stroke-width="2" stroke-linejoin="round"/><path d="M12 7v9M8 11h8" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></svg>'},
@@ -480,7 +546,7 @@ var MILESTONES=(function(){var a=PERKS.map(function(p){return p.at});return a})(
 function isMilestone(s){return MILESTONES.indexOf(s)>=0||(s>1000&&s%500===0)}
 
 /* ---- profile (persisted) ---- */
-var P={coins:0,best:0,life:0,runs:0,up:{power:0,hang:0,lucky:0,cm:0,auto:0},own:{hat:{none:1},rope:{classic:1},outfit:{navy:1}},eq:{hat:'none',rope:'classic',outfit:'navy'},mathOn:true};
+var P={coins:0,best:0,life:0,runs:0,up:{power:0,hang:0,lucky:0,cm:0,auto:0},own:{hat:{none:1},rope:{classic:1},outfit:{navy:1}},eq:{hat:'none',rope:'classic',outfit:'navy'},mathOn:true,shopAuto:true,pend:0};
 function loadProfile(){
   var s=Store.get('p',null);
   if(s&&typeof s==='object'){
@@ -489,24 +555,33 @@ function loadProfile(){
     if(s.own)['hat','rope','outfit'].forEach(function(g){if(s.own[g])for(var id in s.own[g])P.own[g][id]=1});
     if(s.eq)['hat','rope','outfit'].forEach(function(g){if(typeof s.eq[g]==='string'&&P.own[g][s.eq[g]])P.eq[g]=s.eq[g]});
     if(typeof s.mathOn==='boolean')P.mathOn=s.mathOn;
+    if(typeof s.shopAuto==='boolean')P.shopAuto=s.shopAuto;
+    // a run that was interrupted (page closed mid-run): its unspent run coins are banked, never lost
+    if(typeof s.pend==='number'&&isFinite(s.pend)&&s.pend>0){P.coins+=s.pend;P.pend=0;try{Store.set('p',P)}catch(e){}}
   }
 }
-function saveProfile(){Store.set('p',P)}
+function saveProfile(){P.pend=(typeof G!=='undefined'&&G&&G.phase==='run'&&G.purse>0)?G.purse:0;Store.set('p',P)}
 function resetProfile(){
-  P.coins=0;P.best=0;P.life=0;P.runs=0;P.up={power:0,hang:0,lucky:0,cm:0,auto:0};P.own={hat:{none:1},rope:{classic:1},outfit:{navy:1}};P.eq={hat:'none',rope:'classic',outfit:'navy'};P.mathOn=true;
+  P.coins=0;P.best=0;P.life=0;P.runs=0;P.up={power:0,hang:0,lucky:0,cm:0,auto:0};P.own={hat:{none:1},rope:{classic:1},outfit:{navy:1}};P.eq={hat:'none',rope:'classic',outfit:'navy'};P.mathOn=true;P.shopAuto=true;P.pend=0;
   Store.wipe();saveProfile();
 }
 loadProfile();
 function has(id){return P.best>=PERKAT[id]}
 function legendTier(){return Math.max(0,Math.floor(P.best/1000)-1)}
+function sat(c,k){return 1-Math.pow(k,c)}
+function rbN(id){return (typeof G!=='undefined'&&G&&G.rb&&G.rb[id])||0}
+function tmpN(id){return (typeof G!=='undefined'&&G&&G.tmp&&G.tmp[id])||0}
 function stats(){
   var u=P.up,bo=has('bouncy'),ro=has('rocket');
-  var H=(0.52+0.24*(1-Math.pow(0.95,u.hang)))*(bo?1.1:1)*(ro?1.15:1);
+  var hopS=sat(rbN('hop'),.85),megaS=sat(rbN('mega'),.8),luckS=sat(rbN('lucky'),.88),supS=sat(rbN('super'),.75);
+  var slow=(typeof G!=='undefined'&&G&&G.slowLeft>0)?1.25:1;
+  var H=(0.52+0.24*(1-Math.pow(0.95,u.hang)))*(bo?1.1:1)*(ro?1.15:1)*(1+0.12*hopS)*(1+0.2*megaS);
+  var grace=0.05+0.035*(1-Math.pow(0.94,u.lucky))+(bo?0.015:0)+(has('mitts')?0.02:0)+0.02*hopS+0.04*luckS+0.12*supS+(tmpN('win')>0?0.05:0);
   return{
     H:H,
-    hmax:0.5*(bo?1.08:1)*(ro?1.3:1),
-    grace:0.05+0.035*(1-Math.pow(0.94,u.lucky))+(bo?0.015:0)+(has('mitts')?0.02:0),
-    ropeSlow:has('slowmo')?1.14:1,
+    hmax:0.5*(bo?1.08:1)*(ro?1.3:1)*(1+0.3*hopS)*(1+0.3*megaS),
+    grace:Math.min(grace,0.19),
+    ropeSlow:(has('slowmo')?1.14:1)*slow,
     perkCoin:(has('magnet')?1.5:1)*(has('golden')?2:1)*(has('turbo')?1.5:1)*(has('cosmic')?3:1)*Math.pow(1.25,legendTier()),
     cm:Math.pow(1.15,u.cm),
     shields:(has('second')?1:0)+(has('cloud')?1:0),
@@ -515,7 +590,13 @@ function stats(){
     dbl:has('dbl')
   };
 }
-function coinsPerSkip(streak){var st=stats();return Math.max(1,Math.floor((1+P.up.power*0.75+Math.floor(streak/10))*st.cm*st.perkCoin))}
+/* permanent (meta) coins per skip, before any run-only boosts */
+function coinsBase(streak){var st=stats();return Math.max(1,Math.floor((1+P.up.power*0.75+Math.floor(streak/10))*st.cm*st.perkCoin))}
+/* run-only coin multiplier from boosts */
+function runCoinMult(streak){
+  return (1+0.2*rbN('coin'))*(1+0.02*Math.floor(streak/5)*rbN('combo'))*Math.pow(2,rbN('dcoins'))*Math.pow(3,rbN('golden'))*(tmpN('coin')>0?2:1);
+}
+function coinsPerSkip(streak){var b=coinsBase(streak);return Math.max(1,Math.floor(b*runCoinMult(streak)))+rbN('magnet')*Math.ceil(b*0.5)}
 function upCost(id){var u=UPS.filter(function(x){return x.id===id})[0];return Math.ceil(u.base*Math.pow(u.gr,P.up[id]))}
 function cosCost(g,id){var t=g==='hat'?HATS:g==='rope'?ROPES:OUTFITS;return t[id].cost}
 function cosOwned(g,id){var t=g==='hat'?HATS:g==='rope'?ROPES:OUTFITS;return !!P.own[g][id]||(t[id].req!==undefined&&P.best>=t[id].req)}
@@ -542,6 +623,62 @@ function mathOnce(level){
   for(var i=0;i<offs.length&&ch.length<3;i++){var d=ans+offs[i];if(d>=0&&!ds[d]){ds[d]=1;ch.push(d)}}
   while(ch.length<3){var d2=ans+ch.length+rnd(6);if(!ds[d2]){ds[d2]=1;ch.push(d2)}}
   return{t:t,ans:ans,choices:shuffle(ch)};
+}
+
+/* ---- run-only boosts (roguelike draft). They vanish on a miss; permanent unlocks/upgrades stay. ---- */
+var RARITY={common:{name:'COMMON',col:'#8d99ae',bg:'#f1f4f9',w:62,mult:6},rare:{name:'RARE',col:'#2f8cff',bg:'#e6f1ff',w:26,mult:14},epic:{name:'EPIC',col:'#a56bff',bg:'#f1e8ff',w:9,mult:30},legendary:{name:'LEGEND',col:'#ffb300',bg:'#fff4cf',w:3,mult:70}};
+var BOOSTS=[
+  {id:'hop',r:'common',name:'Bouncy Shoes+',ic:'shoe',t:['Jump higher!','Wider timing']},
+  {id:'lucky',r:'common',name:'Lucky Clover',ic:'clover',t:['Easier timing!','Bigger window']},
+  {id:'coin',r:'common',name:'Coin Pop',ic:'coin',t:['+20% coins','every skip!']},
+  {id:'shield',r:'common',name:'Shield',ic:'shield',t:['Blocks 1 miss','Stay safe!'],instant:1},
+  {id:'slow',r:'rare',name:'Slow-Mo Bursts',ic:'clock',t:['Rope slows','every 10 skips']},
+  {id:'combo',r:'rare',name:'Combo Boost',ic:'combo',t:['Coins grow as','streak grows!']},
+  {id:'rain',r:'rare',name:'Coin Rain',ic:'rain',t:['Bonus coins','every 5 skips']},
+  {id:'magnet',r:'rare',name:'Star Magnet',ic:'magnet',t:['Extra coins','each skip!']},
+  {id:'autoc',r:'rare',name:'Auto-Skip',ic:'robot',t:['I skip for you','+1 charge'],instant:1},
+  {id:'saver',r:'epic',name:'Streak Saver',ic:'heart',t:['Miss? Keep','half streak!']},
+  {id:'dcoins',r:'epic',name:'Double Coins',ic:'x2',t:['Coins x2!','Stacks up!']},
+  {id:'super',r:'epic',name:'Super Window',ic:'spark',t:['HUGE window!','So easy!']},
+  {id:'mega',r:'legendary',name:'Mega Jump',ic:'rocket',t:['Sky-high jump!','More air time']},
+  {id:'golden',r:'legendary',name:'Golden Touch',ic:'crown',t:['Coins x3!','So shiny!']},
+  {id:'heartx',r:'legendary',name:'Cosmic Shields',ic:'planet',t:['+3 shields!','Super safe!'],instant:1}
+];
+var BOOSTBY={};BOOSTS.forEach(function(b){BOOSTBY[b.id]=b});
+/* always-available buy-now items */
+var BUYNOW=[
+  {id:'b_shield',name:'Extra Shield',ic:'shield',t:['+1 shield'],mult:10},
+  {id:'b_coin',name:'Coin Boost',ic:'coin',t:['Coins x2','for 15 skips'],mult:8},
+  {id:'b_win',name:'Big Window',ic:'clover',t:['Easy timing','for 15 skips'],mult:6},
+  {id:'b_auto',name:'Auto-Skip',ic:'robot',t:['+1 helper','charge'],mult:14}
+];
+var BUYBY={};BUYNOW.forEach(function(b){BUYBY[b.id]=b});
+var TEMP_SKIPS=15;
+/* price = permanent coins-per-skip (so it grows with depth) x tier x 1.18^(purchases this run); no cap */
+function priceOf(mult,streak,buys,extra){return Math.max(4,Math.ceil(coinsBase(streak)*mult*Math.pow(1.18,buys)*(extra||1)))}
+function boostPrice(id,streak,buys){return priceOf(RARITY[BOOSTBY[id].r].mult,streak,buys)}
+function buyNowPrice(id,streak,buys){return priceOf(BUYBY[id].mult,streak,buys)}
+function rerollPrice(streak,rerolls,buys){return priceOf(5,streak,buys,Math.pow(1.35,rerolls))}
+/* a new draft is offered at these streaks: every 10 early, then it spreads out as you go up */
+function draftAt(s){
+  if(s<=0)return false;
+  if(s<50)return s%10===0;
+  if(s<150)return s%25===0;
+  if(s<500)return s%50===0;
+  if(s<2000)return s%100===0;
+  return s%250===0;
+}
+function rollDraft(streak,force){
+  if(force)return force.map(function(id){return{id:id}});
+  var d=Math.min(1,Math.log10(1+streak)/3),pool=BOOSTS.slice(),out=[];
+  var wt={common:Math.max(20,62-30*d),rare:26+8*d,epic:9+14*d,legendary:3+6*d};
+  for(var k=0;k<3&&pool.length;k++){
+    var tot=0;pool.forEach(function(b){tot+=wt[b.r]});
+    var x=Math.random()*tot,ch=pool.length-1;
+    for(var i=0;i<pool.length;i++){x-=wt[pool[i].r];if(x<=0){ch=i;break}}
+    out.push({id:pool[ch].id});pool.splice(ch,1);
+  }
+  return out;
 }
 
 /* ===== WORLD: procedural scenery on canvas (8 worlds, then "Super" repeats) ===== */
@@ -619,7 +756,8 @@ function drawWorld(ctx,W,H,gy,k,t){
 
 /* ===== ENGINE: rope timing, jump physics, streak/progression, effects, stumble ===== */
 var G={phase:'idle',T:0,streak:0,runCoins:0,shields:0,autoCh:0,autoLeft:0,y:0,vy:0,air:false,hopped:false,buf:-9,crosses:[],last:0,beatN:0,sinceDbl:0,
-  face:'happy',stumbleT:0,newBest:false,unl:[],paused:false,botOn:false,worldK:0,tw:0,coinsSaved:0,lastWhoosh:-1,mathCount:0,mathLevel:0,frozen:false,cueAt:-9,pendingMath:false,skipsThisRun:0,milesQ:[]};
+  face:'happy',stumbleT:0,newBest:false,unl:[],paused:false,botOn:false,worldK:0,tw:0,coinsSaved:0,lastWhoosh:-1,mathCount:0,mathLevel:0,frozen:false,cueAt:-9,pendingMath:false,skipsThisRun:0,milesQ:[],
+  purse:0,banked:0,rb:{},tmp:{},slowLeft:0,buys:0,rerolls:0,draft:[],picked:false,draftNew:false,counting:false,pendDraft:false,cdId:0,lostList:[],botShop:false};
 var L={W:390,H:844,gy:640,ch:260,cw:164,cx:195,dpr:1};
 var cvBg,cvFx,cbg,cfx,heroEl,shadowEl,stageEl;
 var parts=[]; // particles
@@ -677,17 +815,87 @@ function fillQueue(){
   }
 }
 
+function requeue(){
+  var keep=G.crosses.length?1:0;if(keep&&G.crosses[0].type==='d1')keep=2;
+  G.crosses.length=Math.min(G.crosses.length,keep);fillQueue();
+}
+
+/* ---- run purse + in-run shop (roguelike boosts) ---- */
+function addPurse(n){G.purse+=n;G.runCoins+=n;if(G.purse>1e300)G.purse=1e300}
+function syncPause(){G.paused=!!(G.counting||document.querySelector('.modal.on'))}
+function openShop(){
+  if(G.phase!=='run'||SCREEN!=='run')return;
+  G.counting=false;G.cdId++;$('#count').className='';
+  G.draftNew=false;runShopRender();$('#shopm').classList.add('on');syncPause();Snd.play('ui');hudUpdate();
+}
+function closeShop(){
+  $('#shopm').classList.remove('on');
+  if(G.phase!=='run'){syncPause();return}
+  startCountdown();
+}
+function startCountdown(){
+  G.counting=true;syncPause();var n=3,id=++G.cdId,el=$('#count');
+  function step(){
+    if(!G.counting||id!==G.cdId)return;
+    if(n>0){el.textContent=n;el.className='';void el.offsetWidth;el.className='show';Snd.play('tick');n--;setTimeout(step,700/TS)}
+    else{
+      el.textContent='GO!';el.className='';void el.offsetWidth;el.className='show go';Snd.play('go');
+      var c0=G.crosses[0];if(c0){var gap=c0.t-G.T;if(gap<1.25){var sh=1.25-gap;G.crosses.forEach(function(c){c.t+=sh;c.bot=false;c.auto=false});G.last+=sh}}
+      G.buf=-9;G.counting=false;syncPause();
+    }
+  }
+  step();
+}
+function boostCount(){var n=0;for(var k in G.rb)n+=G.rb[k];return n}
+function applyBoost(id){
+  if(id==='shield')G.shields++;
+  else if(id==='autoc')G.autoCh++;
+  else if(id==='heartx')G.shields+=3;
+  else G.rb[id]=(G.rb[id]||0)+1;
+  if(id==='slow'){G.slowLeft=3+G.rb.slow;requeue()}
+  var r=BOOSTBY[id].r;
+  sparkleBurst(L.cx,L.gy-L.ch*.5,r==='legendary'?40:r==='epic'?28:16,r==='legendary'?['#ffd23d','#fff','#ff8a1f']:['#7ee8ff','#fff','#ffe23d']);
+  if(r==='legendary'||r==='epic')confetti(r==='legendary'?80:40);
+}
+function pickDraft(i){
+  var o=G.draft[i];if(!o||G.picked||G.phase!=='run')return false;
+  var pr=boostPrice(o.id,G.streak,G.buys);
+  if(G.purse<pr){Snd.play('no');toast('Need '+fmt(pr-G.purse)+' more coins!');return false}
+  G.purse-=pr;G.buys++;G.picked=true;o.taken=true;applyBoost(o.id);
+  Snd.play('buy');toast('Got '+BOOSTBY[o.id].name+'!');hudUpdate();runShopRender();return true;
+}
+function buyNow(id){
+  if(G.phase!=='run')return false;
+  var pr=buyNowPrice(id,G.streak,G.buys);
+  if(G.purse<pr){Snd.play('no');toast('Need '+fmt(pr-G.purse)+' more coins!');return false}
+  G.purse-=pr;G.buys++;
+  if(id==='b_shield')G.shields++;
+  else if(id==='b_coin')G.tmp.coin=(G.tmp.coin||0)+TEMP_SKIPS;
+  else if(id==='b_win')G.tmp.win=(G.tmp.win||0)+TEMP_SKIPS;
+  else if(id==='b_auto')G.autoCh++;
+  sparkleBurst(L.cx,L.gy-L.ch*.5,14,['#7ee8ff','#fff','#ffe23d']);
+  Snd.play('buy');toast(BUYBY[id].name+'!');hudUpdate();runShopRender();return true;
+}
+function rerollDraft(){
+  if(G.phase!=='run')return false;
+  var pr=rerollPrice(G.streak,G.rerolls,G.buys);
+  if(G.purse<pr){Snd.play('no');toast('Need '+fmt(pr-G.purse)+' more coins!');return false}
+  G.purse-=pr;G.rerolls++;G.draft=rollDraft(G.streak);G.picked=false;Snd.play('boing');hudUpdate();runShopRender();return true;
+}
+
 /* ---- run control ---- */
 function newRunState(){
   var st=stats();
   G.T=0;G.streak=0;G.runCoins=0;G.shields=st.shields;G.autoCh=st.autoCharges;G.autoLeft=0;G.y=0;G.vy=0;G.air=false;G.hopped=false;G.buf=-9;
+  G.purse=0;G.banked=0;G.rb={};G.tmp={};G.slowLeft=0;G.buys=0;G.rerolls=0;G.draft=rollDraft(0);G.picked=false;G.draftNew=false;G.counting=false;G.pendDraft=false;G.cdId++;G.lostList=[];
   G.beatN=0;G.sinceDbl=0;G.newBest=false;G.unl=[];G.milesQ=[];G.skipsThisRun=0;G.worldK=0;G.stumbleT=0;G.lastWhoosh=-1;G.pendingMath=false;
   var first=2.4;G.last=first-1.35;G.crosses=[{t:first,type:'n',ok:false,auto:false}];
   fillQueue();
   parts.length=0;
 }
 function startRun(){
-  P.runs++;newRunState();G.phase='run';G.paused=false;
+  P.runs++;newRunState();G.phase='run';
+  $('#shopm').classList.remove('on');$('#count').className='';G.paused=false;
   show('run');layout();setHero('happy');heroEl.className='';
   $('#over').classList.remove('on');
   hudUpdate();banner('Get ready!','tap to jump over the rope','#fff',1500);Snd.play('go');
@@ -819,16 +1027,24 @@ function resolveCross(c){
   if(c.ok){onSkip(c)}
   else if(G.shields>0){
     G.shields--;Snd.play('shield');banner('Second Chance!','shield used - keep going!','#7ee8ff',1000);sparkleBurst(L.cx,L.gy-L.ch*.4,18,['#7ee8ff','#fff']);hudUpdate();
+  }else if(rbN('saver')>0){
+    G.rb.saver--;if(G.rb.saver<=0)delete G.rb.saver;
+    G.streak=Math.max(0,Math.ceil(G.streak/2));G.worldK=worldIdx(G.streak);
+    Snd.play('shield');banner('Streak Saved!','kept half - keep going!','#ff8fb1',1300);sparkleBurst(L.cx,L.gy-L.ch*.4,22,['#ff8fb1','#fff']);hudUpdate();
   }else stumble();
 }
 function onSkip(c){
   G.streak++;G.skipsThisRun++;P.life++;
-  var gain=coinsPerSkip(G.streak);P.coins+=gain;G.runCoins+=gain;
-  if(P.coins>1e300)P.coins=1e300;
   var s=G.streak;
+  var gain=coinsPerSkip(s);addPurse(gain);
   var sx=L.cx,sy=L.gy-L.ch*1.08-G.y*L.ch;
   floatText('+'+fmt(gain),sx+rr(-30,30),sy,'#ffe23d',24+Math.min(14,String(gain).length*1.5));
-  if(stats().perkCoin>=1.5||has('magnet')){for(var i=0;i<3;i++)coinFly(sx+rr(-40,40),sy+rr(0,40))}
+  if(stats().perkCoin>=1.5||rbN('magnet')||tmpN('coin')>0){for(var i=0;i<3;i++)coinFly(sx+rr(-40,40),sy+rr(0,40))}
+  // timed boosts count down (in skips)
+  ['coin','win'].forEach(function(k){if(G.tmp[k]>0){G.tmp[k]--;if(G.tmp[k]<=0){delete G.tmp[k];toast(k==='coin'?'Coin Boost ended':'Big Window ended')}}});
+  if(G.slowLeft>0)G.slowLeft--;
+  if(rbN('rain')&&s%5===0){var bonus=Math.ceil(coinsBase(s)*2*rbN('rain'));addPurse(bonus);for(var j=0;j<6;j++)coinFly(rr(30,L.W-30),70);floatText('Coin Rain +'+fmt(bonus),L.cx,sy-40,'#7ee8ff',22);Snd.play('coin',s)}
+  if(rbN('slow')&&s%10===0){G.slowLeft=3+rbN('slow');requeue();toast('Slow-Mo!')}
   Snd.play('skip',s);if(s%3===0)Snd.play('coin',s);
   var sp=$('#streak');sp.classList.remove('pop');void sp.offsetWidth;sp.classList.add('pop');
   // best + perk unlocks happen live
@@ -839,10 +1055,17 @@ function onSkip(c){
   if(s%100===0){G.shields++;banner(fmt(s)+' SKIPS!','+1 Second Chance shield','#ffd23d',1500);confetti(90);Snd.play('mile');if(P.up.auto>0&&s%200===0)G.autoCh++}
   else if(isMilestone(s)&&!PERKAT_HIT(s)){banner(fmt(s)+' SKIPS!',null,'#ffd23d',1300);confetti(60);Snd.play('mile')}
   if(s%5===0)saveProfile();
-  if(isMilestone(s)||s%100===0)G.milesQ.push(s);
+  // milestone: fresh draft + optional Skip Math. Rope pauses while either is open.
+  var needMath=P.mathOn&&(isMilestone(s)||s%100===0),needDraft=draftAt(s);
+  if(needDraft){G.draft=rollDraft(s);G.picked=false;G.draftNew=true}
   hudUpdate();
-  if(G.milesQ.length&&P.mathOn&&G.phase==='run'){G.milesQ.length=0;setTimeout(function(){if(G.phase==='run')openMath()},700)}
-  else G.milesQ.length=0;
+  var wantShop=needDraft&&P.shopAuto&&(!G.botOn||G.botShop);
+  if(G.phase==='run'&&(needMath||wantShop)){
+    setTimeout(function(){
+      if(G.phase!=='run'||G.streak<s||document.querySelector('.modal.on'))return;
+      if(needMath){G.pendDraft=wantShop;openMath()}else openShop();
+    },700);
+  }
 }
 function PERKAT_HIT(s){return PERKS.some(function(p){return p.at===s})}
 function perkUnlocked(p){
@@ -852,11 +1075,16 @@ function perkUnlocked(p){
 function stumble(){
   G.phase='stumble';G.stumbleT=0;setHero('oops');heroEl.classList.remove('tuck');heroEl.classList.add('stumble');
   G.air=false;G.y=0;G.vy=0;Snd.play('stumble');sparkleBurst(L.cx,L.gy-L.ch*.9,10,['#ffe23d','#fff']);
-  var s=G.streak;if(s>P.best)P.best=s;saveProfile();
+  var s=G.streak;if(s>P.best)P.best=s;
+  // banking rule: you KEEP every coin you did not spend; boosts fade away
+  G.banked=G.purse;P.coins=Math.min(1e300,P.coins+G.purse);G.purse=0;
+  G.lostList=Object.keys(G.rb).map(function(k){return{id:k,n:G.rb[k]}});
+  hudUpdate();saveProfile();
 }
 function endRun(){
   G.phase='over';
   saveProfile();overShow();
+  G.rb={};G.tmp={};G.slowLeft=0;
 }
 
 var lastNow=0;
@@ -904,19 +1132,21 @@ function botStep(st){
 }
 function openMath(){
   var lvl=Math.min(5,Math.floor(Math.log10(Math.max(10,G.streak))*1.6)-1);G.mathLevel=lvl;
-  var q=mathQ(lvl);G.mq=q;G.paused=true;G.mathCoins=Math.max(5,coinsPerSkip(G.streak)*(10+lvl*5));
+  var q=mathQ(lvl);G.mq=q;G.mathCoins=Math.max(5,coinsPerSkip(G.streak)*(10+lvl*5));
   $('#mathq').textContent=q.t;$('#mathbonus').innerHTML='Bonus: '+IC.coin()+' '+fmt(G.mathCoins)+' coins! (no pressure)';
   $('#mathmsg').textContent='';
   $('#mathch').innerHTML=q.choices.map(function(c){return '<button class="btn blue" data-ans="'+c+'">'+c+'</button>'}).join('');
-  $('#mathm').classList.add('on');$('#btn-mathskip').style.display='';Snd.play('ui');
+  $('#mathm').classList.add('on');syncPause();$('#btn-mathskip').style.display='';Snd.play('ui');
 }
 function closeMath(){
   $('#mathm').classList.remove('on');
-  var shift=1.8;G.crosses.forEach(function(c){c.t+=shift});G.last+=shift;
+  if(G.pendDraft&&G.phase==='run'){G.pendDraft=false;openShop();return}
+  G.pendDraft=false;
+  var shift=1.8;G.crosses.forEach(function(c){c.t+=shift;c.bot=false;c.auto=false});G.last+=shift;
   if(G.phase==='run'){banner('Ready?','','#fff',900)}
-  G.paused=false;
+  syncPause();
 }
-function pauseRun(on){if(G.phase==='run'||G.phase==='stumble')G.paused=on}
+function pauseRun(){syncPause()}
 function resetCosmeticsView(){}
 
 /* ===== UI: screens, HUD, summary card, shop (upgrades / powerups / closet), how-to, settings ===== */
@@ -933,29 +1163,58 @@ function prevMile(s){var p=0;for(var i=0;i<MILESTONES.length;i++)if(MILESTONES[i
 function mileName(n){var p=PERKS.filter(function(x){return x.at===n})[0];return p&&P.best<n?p.name:(p?'milestone':'milestone')}
 function hudUpdate(){
   $('#streak').textContent=fmt(G.streak);
-  $('#coinchip').innerHTML=IC.coin()+' <span id="coinnum">'+fmt(P.coins)+'</span>';
+  $('#coinchip').innerHTML=IC.coin()+' <span id="coinnum">'+fmt(G.purse)+'</span>';
   var sh='';for(var i=0;i<Math.min(G.shields,5);i++)sh+=IC.shield();if(G.shields>5)sh+='<b class="outline" style="font-size:16px">x'+G.shields+'</b>';$('#shields').innerHTML=sh;
   var nx=nextMile(G.streak),pv=prevMile(G.streak),pk=PERKS.filter(function(x){return x.at===nx&&P.best<nx})[0];
   $('#mfill').style.width=(100*clamp((G.streak-pv)/(nx-pv),0,1))+'%';
   $('#nextlbl').textContent=pk?'Next: '+pk.name+' at '+fmt(nx):'Next milestone: '+fmt(nx);
-  var ab=$('#autobtn'),lvl=P.up.auto;
-  ab.className=G.autoLeft>0?'on':(lvl<=0||G.autoCh<=0?'dis':'');ab.style.opacity=ab.className==='dis'?'.55':'';
-  ab.innerHTML=IC.robot()+'<span>'+(G.autoLeft>0?'AUTO!':(lvl<=0?'AUTO':'AUTO x'+G.autoCh))+'</span>';
+  var ab=$('#autobtn');
+  ab.className=G.autoLeft>0?'on':(G.autoCh<=0?'dis':'');ab.style.opacity=ab.className==='dis'?'.55':'';
+  ab.innerHTML=IC.robot()+'<span>'+(G.autoLeft>0?'AUTO!':(G.autoCh<=0?'AUTO':'AUTO x'+G.autoCh))+'</span>';
+  // run-only boosts bar
+  var bb='',prev=hudUpdate.sig||'';
+  Object.keys(G.rb).forEach(function(id){var b=BOOSTBY[id];bb+='<span class="bi r-'+b.r+'" data-b="'+id+'" title="'+b.name+'">'+IC[b.ic]()+(G.rb[id]>1?'<i>x'+G.rb[id]+'</i>':'')+'</span>'});
+  if(G.tmp.coin>0)bb+='<span class="bi tmp" data-b="t_coin">'+IC.coin()+'<i>'+G.tmp.coin+'</i></span>';
+  if(G.tmp.win>0)bb+='<span class="bi tmp" data-b="t_win">'+IC.clover()+'<i>'+G.tmp.win+'</i></span>';
+  if(G.slowLeft>0)bb+='<span class="bi tmp" data-b="t_slow">'+IC.clock()+'<i>'+G.slowLeft+'</i></span>';
+  if(bb!==prev){$('#boostbar').innerHTML=bb;hudUpdate.sig=bb}
+  var sbn=$('#shopbtn'),can=!G.picked&&G.draft.some(function(o){return G.purse>=boostPrice(o.id,G.streak,G.buys)});
+  sbn.className=(can?'can ':'')+(G.draftNew&&!G.picked?'new':'');
+  sbn.innerHTML=IC.bag()+'<span>SHOP</span>';
+}
+/* ---- in-run shop panel: pick 1 of 3 + buy-now items ---- */
+function runShopRender(){
+  $('#sh-purse').innerHTML=IC.coin()+' <b>'+fmt(G.purse)+'</b>';
+  $('#sh-title').textContent=G.picked?'Shopping!':'Pick 1!';
+  $('#sh-draft').innerHTML=G.draft.map(function(o,i){
+    var b=BOOSTBY[o.id],R=RARITY[b.r],pr=boostPrice(o.id,G.streak,G.buys),poor=G.purse<pr,have=(G.rb[o.id]||0);
+    var cls='dcard r-'+b.r+(o.taken?' got':G.picked?' gone':(poor?' poor':''));
+    return '<button class="'+cls+'" data-pick="'+i+'" data-id="'+o.id+'"'+(G.picked&&!o.taken?' disabled':'')+'><span class="rar">'+R.name+'</span><span class="dic">'+IC[b.ic]()+'</span><b>'+b.name+'</b><small>'+b.t[0]+'</small><small>'+b.t[1]+'</small>'+(have&&!o.taken?'<span class="own">have x'+have+'</span>':'')+
+      (o.taken?'<span class="price">Got it!</span>':'<span class="price">'+IC.coin()+' '+fmt(pr)+'</span>')+'</button>';
+  }).join('');
+  $('#sh-buy').innerHTML=BUYNOW.map(function(n){
+    var pr=buyNowPrice(n.id,G.streak,G.buys),poor=G.purse<pr;
+    return '<button class="bn'+(poor?' poor':'')+'" data-now="'+n.id+'">'+IC[n.ic]()+'<span class="tx"><b>'+n.name+'</b>'+n.t.map(function(x){return '<small>'+x+'</small>'}).join('')+'</span><span class="price">'+IC.coin()+' '+fmt(pr)+'</span></button>';
+  }).join('');
+  var rp=rerollPrice(G.streak,G.rerolls,G.buys);
+  $('#btn-reroll').className='btn small '+(G.purse>=rp?'blue':'orange');
+  $('#btn-reroll').innerHTML='<span>'+IC.dice()+' Reroll</span><span>'+IC.coin()+' '+fmt(rp)+'</span>';
 }
 function titleRender(){
   $('#title-hero').innerHTML=sullivan({shirt:P.eq.outfit,hat:P.eq.hat,face:'cheer',arms:20});
   $('#title-stats').innerHTML='<span class="chip">'+IC.star()+' Best <b>'+fmt(P.best)+'</b></span><span class="chip">'+IC.rope()+' Skips <b>'+fmt(P.life)+'</b></span><span class="chip gold">'+IC.coin()+' <b>'+fmt(P.coins)+'</b></span>';
   var n=PERKS.filter(function(p){return p.at>P.best})[0];
   $('#next-hint').textContent=n?'Next powerup: '+n.name+' at '+fmt(n.at)+' skips':'Every 1,000 skips = a new Legend tier!';
-  $('#btn-shop').innerHTML=IC.coin()+' Shop';$('#btn-how').innerHTML=IC.q()+' How to';
+  $('#btn-shop').innerHTML=IC.coin()+' Upgrades';$('#btn-how').innerHTML=IC.q()+' How to';
 }
 function overShow(){
   var s=G.streak,c=$('#overcard');
   var unl=G.unl.map(function(p){return '<div class="unl">'+IC[PERKICON[p.id]]()+'<span><b>'+p.name+'</b><br><small>'+p.desc+'</small></span></div>'}).join('');
   c.innerHTML='<h2>'+(s>=10?'Great skipping!':s>0?'Oopsie-daisy!':'Whoops!')+'</h2><div class="big">'+fmt(s)+'</div><div style="font-weight:900;margin-top:-6px">skips in a row</div>'+
     (G.newBest&&s>0?'<div class="newbest">NEW BEST!</div>':'')+
-    '<div class="earned"><div>'+IC.star()+' Best streak <b>'+fmt(P.best)+'</b></div><div>'+IC.coin()+' Coins earned <b>+'+fmt(G.runCoins)+'</b></div><div>'+IC.coin()+' You have <b>'+fmt(P.coins)+'</b></div></div>'+unl+
-    '<button class="btn go big" id="btn-again">SKIP AGAIN!</button><div class="row" style="width:100%"><button class="btn blue small" id="btn-ov-shop" style="flex:1">'+IC.coin()+' Shop</button><button class="btn orange small" id="btn-ov-home" style="flex:1">Home</button></div>';
+    '<div class="earned"><div>'+IC.star()+' Best streak <b>'+fmt(P.best)+'</b></div><div>'+IC.coin()+' Coins earned <b>+'+fmt(G.runCoins)+'</b></div><div>'+IC.bag()+' Kept safe <b>+'+fmt(G.banked)+'</b></div><div>'+IC.coin()+' In your bank <b>'+fmt(P.coins)+'</b></div></div>'+
+    (G.lostList.length?'<div class="fade">Boosts fade. Coins stay!</div>':'<div class="fade">Unspent coins stay safe!</div>')+unl+
+    '<button class="btn go big" id="btn-again">SKIP AGAIN!</button><div class="row" style="width:100%"><button class="btn blue small" id="btn-ov-shop" style="flex:1">'+IC.coin()+' Upgrades</button><button class="btn orange small" id="btn-ov-home" style="flex:1">Home</button></div>';
   $('#over').classList.add('on');
 }
 /* ---- shop ---- */
@@ -979,7 +1238,7 @@ function shopRender(){
       var cost=upCost(u.id),can=P.coins>=cost;
       h+='<div class="item"><div class="ico">'+IC[u.icon]()+'</div><div class="txt"><b>'+u.name+'<span class="lvl">Lv '+P.up[u.id]+'</span></b><small>'+u.desc+'</small><small>'+upEffect(u.id)+'</small></div><button class="btn '+(can?'go':'orange')+'" data-buy="'+u.id+'">'+IC.coin()+' '+fmt(cost)+'</button></div>';
     });
-    h+='<div class="pill-sec">Upgrades never stop: every level costs a bit more!</div>';
+    h+='<div class="pill-sec">Bank coins buy FOREVER upgrades. Every level costs a bit more!</div>';
   }else if(shopTab==='perks'){
     var lt=legendTier();
     h+='<div class="pill-sec">Reach a streak to unlock a powerup FOREVER. Best streak: '+fmt(P.best)+'</div>';
@@ -1008,21 +1267,25 @@ function howRender(){
   var cards=[
     [sullivan({face:'happy',arms:20}).replace('<svg ','<svg style="height:70px" '),'Rope swings over you!'],
     [IC.hand(),'Tap to jump over!'],
-    [IC.star(),'Each skip is a coin!'],
+    [IC.star(),'Each skip earns coins!'],
+    [IC.bag(),'Tap SHOP to spend!'],
+    [IC.spark(),'Boosts last one run!'],
+    [IC.shield(),'Missed? Keep unspent coins!'],
+    [IC.coin(),'Bank buys forever upgrades!'],
     [IC.shoe(),'Streaks unlock powerups!'],
-    [IC.coin(),'Spend coins in the Shop!'],
     [IC.math(),'Do math for bonus coins!']
   ];
   $('#how-body').innerHTML=cards.map(function(c){return '<div class="hcard"><div class="pic">'+c[0]+'</div><p>'+c[1]+'</p></div>'}).join('');
 }
 /* ---- settings ---- */
 function syncSettings(){
-  var s=$('#tog-sound'),m=$('#tog-math');
+  var s=$('#tog-sound'),m=$('#tog-math'),sh=$('#tog-shop');
+  sh.classList.toggle('on',P.shopAuto);sh.textContent=P.shopAuto?'ON':'OFF';sh.setAttribute('aria-checked',String(P.shopAuto));
   s.classList.toggle('on',Snd.on);s.textContent=Snd.on?'ON':'OFF';s.setAttribute('aria-checked',String(Snd.on));
   m.classList.toggle('on',P.mathOn);m.textContent=P.mathOn?'ON':'OFF';m.setAttribute('aria-checked',String(P.mathOn));
 }
-function openSettings(){syncSettings();$('#settingsm').classList.add('on');pauseRun(true)}
-function closeSettings(){$('#settingsm').classList.remove('on');if(!$('#mathm').classList.contains('on'))pauseRun(false)}
+function openSettings(){syncSettings();$('#settingsm').classList.add('on');syncPause()}
+function closeSettings(){$('#settingsm').classList.remove('on');syncPause()}
 
 document.addEventListener('click',function(e){
   var b=e.target.closest('button');if(!b)return;
@@ -1052,24 +1315,29 @@ document.addEventListener('click',function(e){
   if(b.hasAttribute('data-wear')){var w=b.getAttribute('data-wear').split(':');P.eq[w[0]]=w[1];saveProfile();Snd.play('tap');shopRender();return}
   if(b.id==='autobtn'){
     if(G.phase!=='run')return;
-    if(P.up.auto<=0){toast('Buy Auto-Skip Helper in the Shop!');Snd.play('no');return}
-    if(G.autoCh<=0){toast('No Auto-Skip left this run');Snd.play('no');return}
+    if(G.autoCh<=0){toast('No Auto-Skip! Find one in the SHOP');Snd.play('no');return}
     if(G.autoLeft>0)return;
     G.autoCh--;G.autoLeft=stats().autoDur;Snd.play('auto');banner('AUTO-SKIP!','I got this!','#7ee8ff',900);hudUpdate();return;
   }
   if(b.id==='tog-sound'){Snd.on=!Snd.on;Store.set('sound',Snd.on);syncSettings();Snd.play('tap');return}
+  if(b.id==='tog-shop'){P.shopAuto=!P.shopAuto;saveProfile();syncSettings();Snd.play('tap');return}
+  if(b.id==='shopbtn'){if(G.phase==='run')openShop();return}
+  if(b.id==='btn-shopclose'){Snd.play('ui');closeShop();return}
+  if(b.id==='btn-reroll'){rerollDraft();return}
+  if(b.hasAttribute('data-pick')){pickDraft(+b.getAttribute('data-pick'));return}
+  if(b.hasAttribute('data-now')){buyNow(b.getAttribute('data-now'));return}
   if(b.id==='tog-math'){P.mathOn=!P.mathOn;saveProfile();syncSettings();Snd.play('tap');return}
   if(b.id==='btn-setdone'){Snd.play('ui');closeSettings();return}
   if(b.id==='btn-reset'){Snd.play('tap');$('#settingsm').classList.remove('on');$('#confirmm').classList.add('on');return}
   if(b.id==='btn-reset-no'){Snd.play('ui');$('#confirmm').classList.remove('on');$('#settingsm').classList.add('on');return}
   if(b.id==='btn-reset-yes'){
-    resetProfile();$('#confirmm').classList.remove('on');G.phase='idle';G.streak=0;$('#over').classList.remove('on');
-    mathSeen={};show('title');pauseRun(false);toast('Fresh start! Let\'s skip!');Snd.play('boing');return;
+    resetProfile();$('#confirmm').classList.remove('on');G.phase='idle';G.streak=0;G.purse=0;G.rb={};G.tmp={};$('#over').classList.remove('on');
+    mathSeen={};show('title');syncPause();toast('Fresh start! Let\'s skip!');Snd.play('boing');return;
   }
   if(b.hasAttribute('data-ans')){
     var a=+b.getAttribute('data-ans');if(b.disabled)return;
     if(a===G.mq.ans){
-      b.classList.add('right');P.coins+=G.mathCoins;G.runCoins+=G.mathCoins;saveProfile();hudUpdate();Snd.play('good');
+      b.classList.add('right');addPurse(G.mathCoins);saveProfile();hudUpdate();Snd.play('good');
       $('#mathmsg').textContent='Yes! +'+fmt(G.mathCoins)+' coins!';confetti(50);
       $$('#mathch .btn').forEach(function(x){x.disabled=true});$('#btn-mathskip').style.display='none';
       setTimeout(closeMath,FAST?300:1100);
@@ -1107,6 +1375,9 @@ function snapshot(){
     H:st.H,hmax:st.hmax,grace:st.grace,cps:coinsPerSkip(G.streak),stats:st,T:G.T,
     nextIn:c0?c0.t-G.T:null,optIn:c0?c0.t-st.H/2-G.T:null,crossType:c0?c0.type:null,queue:G.crosses.map(function(c){return{t:c.t,type:c.type}}),
     paused:G.paused,mathOpen:$('#mathm').classList.contains('on'),overOn:$('#over').classList.contains('on'),runs:P.runs,newBest:G.newBest,unl:G.unl.map(function(p){return p.id}),
+    purse:G.purse,banked:G.banked,boosts:JSON.parse(JSON.stringify(G.rb)),tmp:JSON.parse(JSON.stringify(G.tmp)),slowLeft:G.slowLeft,shopOpen:$('#shopm').classList.contains('on'),counting:G.counting,
+    draft:G.draft.map(function(o){var pr=boostPrice(o.id,G.streak,G.buys);return{id:o.id,rarity:BOOSTBY[o.id].r,price:pr,afford:G.purse>=pr,taken:!!o.taken}}),picked:G.picked,draftNew:G.draftNew,buys:G.buys,rerolls:G.rerolls,
+    now:BUYNOW.map(function(n){return{id:n.id,price:buyNowPrice(n.id,G.streak,G.buys)}}),rerollPrice:rerollPrice(G.streak,G.rerolls,G.buys),shopAuto:P.shopAuto,lost:G.lostList.map(function(x){return x.id}),
     tempo:tempo(G.streak)*st.ropeSlow,sndLog:Snd.log.slice(-30),mq:G.mq||null,ts:TS,rope:ropeState?(G.crosses.length?ropeState():null):null};
 }
 window.__SS={
@@ -1115,6 +1386,14 @@ window.__SS={
   fmt:fmt,coinsPerSkip:coinsPerSkip,upCost:upCost,mathQ:mathQ,mathSeenReset:function(){mathSeen={}},tempo:tempo,worldIdx:worldIdx,worldName:worldName,
   genRun:function(lvl,n){var o=[];for(var i=0;i<n;i++)o.push(mathQ(lvl));return o},
   give:function(n){P.coins+=n;saveProfile();hudUpdate();if(SCREEN==='shop')shopRender()},
+  givePurse:function(n){G.purse+=n;G.runCoins+=Math.max(0,n);hudUpdate();if($('#shopm').classList.contains('on'))runShopRender()},
+  openShop:openShop,closeShop:closeShop,pick:pickDraft,buyNow:buyNow,reroll:rerollDraft,
+  setDraft:function(ids){G.draft=rollDraft(0,ids);G.picked=false;G.draftNew=true;hudUpdate();if($('#shopm').classList.contains('on'))runShopRender()},
+  addBoost:function(id,n){for(var i=0;i<(n||1);i++)applyBoost(id);hudUpdate()},
+  setBotShop:function(on){G.botShop=!!on},
+  boostPrice:boostPrice,buyNowPrice:buyNowPrice,rerollPrice:rerollPrice,draftAt:draftAt,rollDraft:function(s,n){var o=[];for(var i=0;i<n;i++)o.push(rollDraft(s).map(function(x){return x.id}));return o},
+  rarityOf:function(id){return BOOSTBY[id].r},boostList:function(){return BOOSTS.map(function(b){return{id:b.id,r:b.r,name:b.name,t:b.t}}).concat(BUYNOW.map(function(b){return{id:b.id,r:'buy',name:b.name,t:b.t}}))},
+  coinsBase:coinsBase,
   setBest:function(n){P.best=n;saveProfile()},
   setLife:function(n){P.life=n;saveProfile()},
   setTS:function(x){TS=x},
